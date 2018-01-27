@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Login from "./Login";
-import Register from "./Register";
 import { Button } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import styles from "./styles";
 
 class Loginscreen extends Component {
   constructor(props) {
@@ -34,14 +35,16 @@ class Loginscreen extends Component {
         <div>
           {this.state.loginmessage}
           <div>
-            <Button primary>Register</Button>
+            <Link to="/register">
+              <Button style={styles.button} primary>
+                Register
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
     );
   }
 }
-const style = {
-  margin: 15
-};
+
 export default Loginscreen;

@@ -1,9 +1,11 @@
 import "./App.css";
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import injectTapEventPlugin from "react-tap-event-plugin";
 import HomeScreen from "./HomeScreen.js";
 import LoginScreen from "./LoginScreen.js";
+import Register from "./Register";
+import StartPage from "./StartPage";
+import { Route, BrowserRouter as Router } from "react-router-dom";
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
@@ -25,19 +27,20 @@ class App extends Component {
   }
   render() {
     return (
-      <div>
-        <HomeScreen />
-        <div className="App">
-          {this.state.loginPage}
-          {this.state.uploadScreen}
+      <Router>
+        <div>
+          <HomeScreen />
+          <div className="App">
+            <Route exact path="/" component={LoginScreen} />
+            <Route path="/signin" component={LoginScreen} />
+            <Route path="/register" component={Register} />
+            <Route path="/startPage" component={StartPage} />
+          </div>
         </div>
-      </div>
+      </Router>
     );
   }
 }
-const style = {
-  margin: 15
-};
 
 export default App;
 

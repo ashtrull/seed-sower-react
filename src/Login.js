@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Button, Form, Grid, Menu, Segment} from 'semantic-ui-react';
-
+import { Button, Form, Grid, Menu, Segment } from "semantic-ui-react";
+import styles from "./styles";
+import { Link } from "react-router-dom";
 
 class Login extends Component {
   constructor(props) {
@@ -23,12 +24,12 @@ class Login extends Component {
       .post(apiBaseUrl + "login", payload)
       .then(function(response) {
         console.log(response);
-        if (response.data.code == 200) {
+        if (response.data.code === 200) {
           console.log("Login successfull");
-          var uploadScreen = [];
+          // var uploadScreen = [];
           // uploadScreen.push(<UploadScreen appContext={self.props.appContext}/>)
           self.props.appContext.setState({ loginPage: [] });
-        } else if (response.data.code == 204) {
+        } else if (response.data.code === 204) {
           console.log("Username password do not match");
           alert("username password do not match");
         } else {
@@ -44,54 +45,51 @@ class Login extends Component {
   render() {
     return (
       <div>
-          <div>
-          <Segment >
-            <Menu
-            color="green"
-            inverted
-            centered
-            >
-            <h3>Welcome to Seed Sower!</h3>
-            </Menu>
-            </Segment>
-            <Form>
+        <div>
+          <Segment textAlign="center" color="green" inverted>
+            Welcome to Seed Sower!
+          </Segment>
+          <Form>
             <Grid centered columns={3}>
-            <Grid.Column>
-            <Form.Input
-              placeholder="Enter your Username"
-              label="Username"
-              onChange={(event, newValue) =>
-                this.setState({ username: newValue })
-              }
-            />
-            <br />
-            <Form.Input
-              centered
-              type="password"
-              placeholder="Enter your Password"
-              label="Password"
-              style={{"text-align": "center"}}
-              onChange={(event, newValue) =>
-                this.setState({ password: newValue })
-              }
-            />
-            </Grid.Column>
+              <Grid.Column>
+                <Form.Input
+                  placeholder="Enter your Username"
+                  label="Username"
+                  onChange={(event, newValue) =>
+                    this.setState({ username: newValue })
+                  }
+                />
+                <br />
+                <Form.Input
+                  centered
+                  type="password"
+                  placeholder="Enter your Password"
+                  label="Password"
+                  style={{ "text-align": "center" }}
+                  onChange={(event, newValue) =>
+                    this.setState({ password: newValue })
+                  }
+                />
+              </Grid.Column>
             </Grid>
             <br />
             <Button
+              style={styles.button}
               primary
               onClick={event => this.handleClick(event)}
-              >
+            >
               Submit
             </Button>
-            </Form>
-
-          </div>
+          </Form>
+          <Link to="/startPage">
+            <Button style={styles.button} primary>
+              Look Over Here
+            </Button>
+          </Link>
+        </div>
       </div>
     );
   }
 }
-const style = {
-  margin: 15
-};
+
 export default Login;
