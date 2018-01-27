@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import Login from './Login.js';
+import { Button, Form, Grid, Menu, Segment} from 'semantic-ui-react'
+import Login from './Login'
 import axios from 'axios';
+
 class Register extends Component {
   constructor(props){
     super(props);
@@ -51,40 +47,60 @@ class Register extends Component {
   render() {
     return (
       <div>
-        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
           <div>
-          <AppBar
-             title="Register"
+          <Segment >
+            <Menu
+            color="green"
+            inverted
+            centered
+            >
+            <h3>Welcome to Seed Sower!</h3>
+            </Menu>
+            </Segment>
+           <br/>
+           <Form>
+           <Grid centered columns={3}>
+           <Grid.Column>
+           <Form.Input
+             placeholder="Enter your Username"
+             label="Username"
+             onChange={(event, newValue) =>
+               this.setState({ username: newValue })
+             }
            />
-           <TextField
-             hintText="Enter your First Name"
-             floatingLabelText="First Name"
-             onChange = {(event,newValue) => this.setState({first_name:newValue})}
-             />
-           <br/>
-           <TextField
-             hintText="Enter your Last Name"
-             floatingLabelText="Last Name"
-             onChange = {(event,newValue) => this.setState({last_name:newValue})}
-             />
-           <br/>
-           <TextField
-             hintText="Enter your Email"
-             type="email"
-             floatingLabelText="Email"
-             onChange = {(event,newValue) => this.setState({email:newValue})}
-             />
-           <br/>
-           <TextField
-             type = "password"
-             hintText="Enter your Password"
-             floatingLabelText="Password"
-             onChange = {(event,newValue) => this.setState({password:newValue})}
-             />
-           <br/>
-           <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+           <br />
+           <Form.Input
+             centered
+             type="password"
+             placeholder="Enter your Password"
+             label="Password"
+             style={{"text-align": "center"}}
+             onChange={(event, newValue) =>
+               this.setState({ password: newValue })
+             }
+           />
+           <Form.Input
+             centered
+             type="password"
+             placeholder="Confirm Password"
+             label="Password"
+             style={{"text-align": "center"}}
+             onChange={(event, newValue) =>
+               this.setState({ password: newValue })
+             }
+           />
+           </Grid.Column>
+           </Grid>
+           <br />
+           <Button
+             primary
+             onClick={event => this.handleClick(event)}
+             >
+             Submit
+           </Button>
+           </Form>
+
           </div>
-         </MuiThemeProvider>
       </div>
     );
   }
