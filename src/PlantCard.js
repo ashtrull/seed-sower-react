@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { EMPTY_COMPONENT } from "./component_helpers";
 import PlantModal from "./PlantModal";
+import styles from "./styles"
 import { Grid } from "semantic-ui-react";
 import { Card, Icon, Image } from "semantic-ui-react";
 
@@ -11,8 +12,8 @@ class PlantCard extends Component {
 
   render() {
     return (
-      <Card centered>
-        <Image src={this.props.plant.image} alt={this.props.plant.name} />
+      <Card centered style={styles.plantCard}>
+        <Image src={this.props.plant.img} alt={this.props.plant.name} style={styles.plantCardImg}/>
         <Card.Content>
           <Card.Header>{this.props.plant.name}</Card.Header>
           <Card.Meta>

@@ -7,38 +7,38 @@ import Garden from "./Garden";
 import { EMPTY_COMPONENT } from "./component_helpers";
 import styles from "./styles";
 
-const plantData = [
-  {
-    name: "Tomato",
-    description:
-      "Tomatoes are basically the best plant and if you dont love them, I dont want to know you.",
-    indoor_start: "2018-02-03",
-    outdoor_start: "2018-04-03",
-    guidelines:
-      "Planting Guidelines: Space plants 18 inches apart, keep leaves dry, water at the base.",
-    image: "https://i.imgur.com/dLmSqIa.jpg"
-  },
-  {
-    name: "Summer Squash",
-    description:
-      "Tomatoes are basically the best plant and if you dont love them, I dont want to know you.",
-    indoor_start: "2018-02-03",
-    outdoor_start: "2018-04-03",
-    guidelines:
-      "Planting Guidelines: Space plants 18 inches apart, keep leaves dry, water at the base.",
-    image: "https://i.imgur.com/yoMWH5Q.jpg"
-  },
-  {
-    name: "Basil",
-    description:
-      "Tomatoes are basically the best plant and if you dont love them, I dont want to know you.",
-    indoor_start: "2018-02-03",
-    outdoor_start: "2018-04-03",
-    guidelines:
-      "Planting Guidelines: Space plants 18 inches apart, keep leaves dry, water at the base.",
-    image: "https://i.imgur.com/LjprDey.jpg"
-  }
-];
+// const plantData = [
+//   {
+//     name: "Tomato",
+//     description:
+//       "Tomatoes are basically the best plant and if you dont love them, I dont want to know you.",
+//     indoor_start: "2018-02-03",
+//     outdoor_start: "2018-04-03",
+//     guidelines:
+//       "Planting Guidelines: Space plants 18 inches apart, keep leaves dry, water at the base.",
+//     image: "https://i.imgur.com/dLmSqIa.jpg"
+//   },
+//   {
+//     name: "Summer Squash",
+//     description:
+//       "Tomatoes are basically the best plant and if you dont love them, I dont want to know you.",
+//     indoor_start: "2018-02-03",
+//     outdoor_start: "2018-04-03",
+//     guidelines:
+//       "Planting Guidelines: Space plants 18 inches apart, keep leaves dry, water at the base.",
+//     image: "https://i.imgur.com/yoMWH5Q.jpg"
+//   },
+//   {
+//     name: "Basil",
+//     description:
+//       "Tomatoes are basically the best plant and if you dont love them, I dont want to know you.",
+//     indoor_start: "2018-02-03",
+//     outdoor_start: "2018-04-03",
+//     guidelines:
+//       "Planting Guidelines: Space plants 18 inches apart, keep leaves dry, water at the base.",
+//     image: "https://i.imgur.com/LjprDey.jpg"
+//   }
+// ];
 
 class StartPage extends Component {
   constructor(props) {
@@ -52,21 +52,25 @@ class StartPage extends Component {
   handlePlantClick(event) {
     var apiBaseUrl = "http://localhost:4741/";
     var self = this;
+    console.log(self.props.token)
+    const token = self.props.credentials.token
     axios({
         method:'get',
         url: apiBaseUrl + 'plants',
-        header: "Authorization: Token token=" + ,
-        data: {
-          credentials: {
-          email: this.state.username.value,
-          password: this.state.password.value
-        }
-      }
+        header: "Authorization: Token token=" + token
       })
-    this.setState({
-      garden: EMPTY_COMPONENT,
-      plants: <Plants plants={plantData} />
-    });
+      .then(function(response) {
+        console.log(response);
+        const plantData = response.data.plants
+        if (response.status === 200) {
+          self.setState({
+            garden: EMPTY_COMPONENT,
+            plants: <Plants plants={plantData} />
+          });
+        }
+
+      })
+
   }
 
   handleGardenClick(event) {

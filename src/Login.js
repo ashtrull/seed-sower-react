@@ -9,7 +9,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
+      email: "",
       password: "",
       token: "",
       id: ""
@@ -27,7 +27,7 @@ class Login extends Component {
         header: "Content-Type: application/json",
         data: {
           credentials: {
-          email: this.state.username.value,
+          email: this.state.email.value,
           password: this.state.password.value
         }
       }
@@ -40,16 +40,16 @@ class Login extends Component {
             token: response.data.user.token,
             id: response.data.user.id
           })
-          console.log(self.props);
+          console.log(self)
           var appScreen = [];
-          appScreen.push(<StartPage />);
+          appScreen.push(<StartPage credentials={self.state}/>);
           self.props.appContext.setState({ loginPage: [], uploadScreen: appScreen});
         } else if (response.status=== 204) {
-          console.log("Username password do not match");
-          alert("Username password do not match");
+          console.log("Email/password combination does not exist");
+          alert("Email/password combination does not exist");
         } else {
-          console.log("Username does not exist");
-          alert("Username does not exist");
+          console.log("No account associated with email");
+          alert("No account associated with email");
         }
       })
       .catch(function(error) {
@@ -69,11 +69,11 @@ class Login extends Component {
               <Grid.Column>
                 <Form.Input
                   type="text"
-                  placeholder="Enter your Username"
-                  label="Username"
+                  placeholder="Enter your Email"
+                  label="Email"
                   onChange={(event, newValue) => {
-                    console.log(this.state.username.value)
-                    return this.setState({ username: newValue })}
+                    console.log(this.state.email.value)
+                    return this.setState({ email: newValue })}
                   }
                 />
                 <br />

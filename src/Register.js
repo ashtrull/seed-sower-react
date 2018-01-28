@@ -85,8 +85,8 @@ class Register extends Component {
               />
                 <Form.Input
                   required
-                  placeholder="Enter your Username"
-                  label="Username"
+                  placeholder="Enter your Email"
+                  label="Email"
                   onChange={(event, newValue) =>
                     this.setState({ email: newValue.value })
                   }
