@@ -7,6 +7,39 @@ import Garden from "./Garden";
 import { EMPTY_COMPONENT } from "./component_helpers";
 import styles from "./styles";
 
+const plantData = [
+  {
+    name: "Tomato",
+    description:
+      "Tomatoes are basically the best plant and if you dont love them, I dont want to know you.",
+    indoor_start: "2018-02-03",
+    outdoor_start: "2018-04-03",
+    guidelines:
+      "Planting Guidelines: Space plants 18 inches apart, keep leaves dry, water at the base.",
+    image: "https://i.imgur.com/dLmSqIa.jpg"
+  },
+  {
+    name: "Summer Squash",
+    description:
+      "Tomatoes are basically the best plant and if you dont love them, I dont want to know you.",
+    indoor_start: "2018-02-03",
+    outdoor_start: "2018-04-03",
+    guidelines:
+      "Planting Guidelines: Space plants 18 inches apart, keep leaves dry, water at the base.",
+    image: "https://i.imgur.com/yoMWH5Q.jpg"
+  },
+  {
+    name: "Basil",
+    description:
+      "Tomatoes are basically the best plant and if you dont love them, I dont want to know you.",
+    indoor_start: "2018-02-03",
+    outdoor_start: "2018-04-03",
+    guidelines:
+      "Planting Guidelines: Space plants 18 inches apart, keep leaves dry, water at the base.",
+    image: "https://i.imgur.com/LjprDey.jpg"
+  }
+];
+
 class StartPage extends Component {
   constructor(props) {
     super(props);
@@ -17,9 +50,10 @@ class StartPage extends Component {
   }
 
   handlePlantClick(event) {
+    console.log(plantData);
     this.setState({
       garden: EMPTY_COMPONENT,
-      plants: <Plants />
+      plants: <Plants plants={plantData} />
     });
   }
 
@@ -46,6 +80,7 @@ class StartPage extends Component {
           </Button>
         </Button.Group>
         {this.state.plants}
+        {this.state.garden}
       </div>
     );
   }
