@@ -19,8 +19,10 @@ class Loginscreen extends Component {
 
   componentWillMount() {
     var loginscreen = [];
+
+    const context = this.props.parentContext
     loginscreen.push(
-      <Login parentContext={this} appContext={this.props.parentContext} />
+      <Login parentContext={this} appContext={context} />
     );
     var loginmessage = "New to Seed Sower? Register now!";
     this.setState({

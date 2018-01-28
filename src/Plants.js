@@ -16,14 +16,14 @@ function Plants() {
               <Card.Header>Tomatoes</Card.Header>
               <Card.Meta>
                 <span className="date">
-                  Tomatoes are basically the best plant and if you don't love
-                  them, I don't want to know you.
+                  Tomatoes are basically the best plant and if you dont love
+                  them, I dont want to know you.
                 </span>
               </Card.Meta>
               <Card.Description>Indoor Start Date: 4/6/2018</Card.Description>
               <Card.Description>Outdoor Start Date: 6/6/2018</Card.Description>
               <Card.Description>
-                Planting Guidelines: Space plants 18" apart, keep leaves dry,
+                Planting Guidelines: Space plants 18 inches apart, keep leaves dry,
                 water at the base.
               </Card.Description>
             </Card.Content>
@@ -42,14 +42,14 @@ function Plants() {
               <Card.Header>Tomatoes</Card.Header>
               <Card.Meta>
                 <span className="date">
-                  Tomatoes are basically the best plant and if you don't love
-                  them, I don't want to know you.
+                  Tomatoes are basically the best plant and if you dont love
+                  them, I dont want to know you.
                 </span>
               </Card.Meta>
               <Card.Description>Indoor Start Date: 4/6/2018</Card.Description>
               <Card.Description>Outdoor Start Date: 6/6/2018</Card.Description>
               <Card.Description>
-                Planting Guidelines: Space plants 18" apart, keep leaves dry,
+                Planting Guidelines: Space plants 18 inches apart, keep leaves dry,
                 water at the base.
               </Card.Description>
             </Card.Content>
@@ -68,14 +68,14 @@ function Plants() {
               <Card.Header>Tomatoes</Card.Header>
               <Card.Meta>
                 <span className="date">
-                  Tomatoes are basically the best plant and if you don't love
-                  them, I don't want to know you.
+                  Tomatoes are basically the best plant and if you dont love
+                  them, I dont want to know you.
                 </span>
               </Card.Meta>
               <Card.Description>Indoor Start Date: 4/6/2018</Card.Description>
               <Card.Description>Outdoor Start Date: 6/6/2018</Card.Description>
               <Card.Description>
-                Planting Guidelines: Space plants 18" apart, keep leaves dry,
+                Planting Guidelines: Space plants 18 inches apart, keep leaves dry,
                 water at the base.
               </Card.Description>
             </Card.Content>
@@ -87,33 +87,7 @@ function Plants() {
             </Card.Content>
           </Card>
         </Grid.Column>
-        <Grid.Column>
-          <Card centered>
-            <Image src="https://i.imgur.com/KLkUb4k.jpg" alt="tomatoes" />
-            <Card.Content>
-              <Card.Header>Tomatoes</Card.Header>
-              <Card.Meta>
-                <span className="date">
-                  Tomatoes are basically the best plant and if you don't love
-                  them, I don't want to know you.
-                </span>
-              </Card.Meta>
-              <Card.Description>Indoor Start Date: 4/6/2018</Card.Description>
-              <Card.Description>Outdoor Start Date: 6/6/2018</Card.Description>
-              <Card.Description>
-                Planting Guidelines: Space plants 18" apart, keep leaves dry,
-                water at the base.
-              </Card.Description>
-            </Card.Content>
-            <Card.Content extra>
-              <a>
-                <Icon name="user" />
-                Companion Plants: Basil
-              </a>
-            </Card.Content>
-          </Card>
-        </Grid.Column>
-      </Grid>
+        </Grid>
     </div>
   );
 }

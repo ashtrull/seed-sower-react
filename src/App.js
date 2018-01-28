@@ -19,6 +19,7 @@ class App extends Component {
     };
   }
   componentWillMount() {
+    console.log(this)
     var loginPage = [];
     loginPage.push(<LoginScreen parentContext={this} />);
     this.setState({
@@ -31,8 +32,8 @@ class App extends Component {
         <div>
           <HomeScreen />
           <div className="App">
-            <Route exact path="/" component={LoginScreen} />
-            <Route path="/signin" component={LoginScreen} />
+            {this.state.loginPage}
+            {this.state.uploadScreen}
             <Route path="/register" component={Register} />
             <Route path="/startPage" component={StartPage} />
           </div>

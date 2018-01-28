@@ -3,6 +3,7 @@ import axios from "axios";
 import { Button, Form, Grid, Menu, Segment } from "semantic-ui-react";
 import styles from "./styles";
 import { Link } from "react-router-dom";
+import StartPage from "./StartPage"
 
 class Login extends Component {
   constructor(props) {
@@ -11,27 +12,38 @@ class Login extends Component {
       username: "",
       password: ""
     };
+
+    // this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(event) {
-    var apiBaseUrl = "http://localhost:4000/api/";
+    var apiBaseUrl = "http://localhost:4741/";
     var self = this;
-    var payload = {
+    var credentials = {
       email: this.state.username,
       password: this.state.password
     };
-    axios
-      .post(apiBaseUrl + "login", payload)
+    axios({
+        method:'post',
+        url: apiBaseUrl + 'sign-in',
+        header: "Content-Type: application/json",
+        data: {credentials: {
+          email: this.state.username.value,
+          password: this.state.password.value
+        }
+      }
+      })
       .then(function(response) {
         console.log(response);
-        if (response.data.code === 200) {
+        if (response.status === 200) {
           console.log("Login successfull");
-          // var uploadScreen = [];
-          // uploadScreen.push(<UploadScreen appContext={self.props.appContext}/>)
-          self.props.appContext.setState({ loginPage: [] });
-        } else if (response.data.code === 204) {
+          console.log(self.props);
+          var appScreen = [];
+          appScreen.push(<StartPage />);
+          self.props.appContext.setState({ loginPage: [], uploadScreen: appScreen});
+        } else if (response.status=== 204) {
           console.log("Username password do not match");
-          alert("username password do not match");
+          alert("Username password do not match");
         } else {
           console.log("Username does not exist");
           alert("Username does not exist");
@@ -53,10 +65,12 @@ class Login extends Component {
             <Grid centered columns={3}>
               <Grid.Column>
                 <Form.Input
+                  type="text"
                   placeholder="Enter your Username"
                   label="Username"
-                  onChange={(event, newValue) =>
-                    this.setState({ username: newValue })
+                  onChange={(event, newValue) => {
+                    console.log(this.state.username.value)
+                    return this.setState({ username: newValue })}
                   }
                 />
                 <br />
@@ -66,8 +80,9 @@ class Login extends Component {
                   placeholder="Enter your Password"
                   label="Password"
                   style={{ "text-align": "center" }}
-                  onChange={(event, newValue) =>
-                    this.setState({ password: newValue })
+                  onChange={(event, newValue) => {
+                    console.log(this.state.password)
+                    return this.setState({ password: newValue }) }
                   }
                 />
               </Grid.Column>
