@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Button, Form, Grid, Menu, Segment } from "semantic-ui-react";
+import { Button, Form, Grid, Segment } from "semantic-ui-react";
+import LoginScreen from "./LoginScreen";
 import Login from "./Login";
 import axios from "axios";
-import { Link } from "react-router-dom";
+
 
 class Register extends Component {
   constructor(props) {
@@ -14,6 +15,16 @@ class Register extends Component {
       password: ""
     };
   }
+
+  handleSignInClick(event) {
+    var loginscreen = [];
+    loginscreen.push(<LoginScreen parentContext={this.props.appContext} />);
+    this.props.appContext.setState({
+      loginPage: loginscreen,
+      uploadScreen: []
+    });
+  }
+
   handleClick(event) {
     var apiBaseUrl = "http://localhost:4000/api/";
     console.log(
@@ -101,9 +112,9 @@ class Register extends Component {
           </Form>
           <br />
           <p>Already have an account?</p>
-          <Link to="/signin">
-            <Button primary>Sign In</Button>
-          </Link>
+          <Button primary onClick={event => this.handleSignInClick(event)}>
+            Sign In
+          </Button>
         </div>
       </div>
     );

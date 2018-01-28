@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Button, Form, Grid, Menu, Segment } from "semantic-ui-react";
+import { Button, Form, Grid, Segment } from "semantic-ui-react";
 import styles from "./styles";
 import { Link } from "react-router-dom";
 import StartPage from "./StartPage"
@@ -19,10 +19,6 @@ class Login extends Component {
   handleClick(event) {
     var apiBaseUrl = "http://localhost:4741/";
     var self = this;
-    var credentials = {
-      email: this.state.username,
-      password: this.state.password
-    };
     axios({
         method:'post',
         url: apiBaseUrl + 'sign-in',

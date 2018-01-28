@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Login from "./Login";
+import Register from "./Register";
 import { Button } from "semantic-ui-react";
-import { Link } from "react-router-dom";
 import styles from "./styles";
 
 class Loginscreen extends Component {
@@ -19,10 +19,8 @@ class Loginscreen extends Component {
 
   componentWillMount() {
     var loginscreen = [];
-
-    const context = this.props.parentContext
     loginscreen.push(
-      <Login parentContext={this} appContext={context} />
+      <Login parentContext={this} appContext={this.props.parentContext} />
     );
     var loginmessage = "New to Seed Sower? Register now!";
     this.setState({
@@ -30,19 +28,31 @@ class Loginscreen extends Component {
       loginmessage: loginmessage
     });
   }
+
+  handleRegisterClick(event) {
+    var registerScreen = [];
+    registerScreen.push(
+      <Register parentContext={this} appContext={this.props.parentContext} />
+    );
+    this.props.parentContext.setState({
+      loginPage: [],
+      uploadScreen: registerScreen
+    });
+  }
+
   render() {
     return (
       <div className="loginscreen">
         {this.state.loginscreen}
+        {this.state.loginmessage}
         <div>
-          {this.state.loginmessage}
-          <div>
-            <Link to="/register">
-              <Button style={styles.button} primary>
-                Register
-              </Button>
-            </Link>
-          </div>
+          <Button
+            style={styles.button}
+            primary
+            onClick={event => this.handleRegisterClick(event)}
+          >
+            Register
+          </Button>
         </div>
       </div>
     );

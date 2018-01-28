@@ -1,8 +1,5 @@
-import React, { Component } from "react";
-import { Button, Form, Grid, Menu, Segment } from "semantic-ui-react";
-import Login from "./Login";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Grid } from "semantic-ui-react";
 import { Card, Icon, Image } from "semantic-ui-react";
 
 function Plants() {
@@ -11,7 +8,7 @@ function Plants() {
       <Grid columns={4}>
         <Grid.Column>
           <Card centered>
-            <Image src="https://i.imgur.com/KLkUb4k.jpg" alt="tomatoes" />
+            <Image src="https://i.imgur.com/dLmSqIa.jpg" alt="tomatoes" />
             <Card.Content>
               <Card.Header>Tomatoes</Card.Header>
               <Card.Meta>
@@ -23,8 +20,8 @@ function Plants() {
               <Card.Description>Indoor Start Date: 4/6/2018</Card.Description>
               <Card.Description>Outdoor Start Date: 6/6/2018</Card.Description>
               <Card.Description>
-                Planting Guidelines: Space plants 18 inches apart, keep leaves dry,
-                water at the base.
+                Planting Guidelines: Space plants 18 inches apart, keep leaves
+                dry, water at the base.
               </Card.Description>
             </Card.Content>
             <Card.Content extra>
@@ -37,9 +34,9 @@ function Plants() {
         </Grid.Column>
         <Grid.Column>
           <Card centered>
-            <Image src="https://i.imgur.com/KLkUb4k.jpg" alt="tomatoes" />
+            <Image src="https://i.imgur.com/yoMWH5Q.jpg" alt="squash" />
             <Card.Content>
-              <Card.Header>Tomatoes</Card.Header>
+              <Card.Header>Summer Squash</Card.Header>
               <Card.Meta>
                 <span className="date">
                   Tomatoes are basically the best plant and if you dont love
@@ -49,8 +46,8 @@ function Plants() {
               <Card.Description>Indoor Start Date: 4/6/2018</Card.Description>
               <Card.Description>Outdoor Start Date: 6/6/2018</Card.Description>
               <Card.Description>
-                Planting Guidelines: Space plants 18 inches apart, keep leaves dry,
-                water at the base.
+                Planting Guidelines: Space plants 18 inches apart, keep leaves
+                dry, water at the base.
               </Card.Description>
             </Card.Content>
             <Card.Content extra>
@@ -63,9 +60,9 @@ function Plants() {
         </Grid.Column>
         <Grid.Column>
           <Card centered>
-            <Image src="https://i.imgur.com/KLkUb4k.jpg" alt="tomatoes" />
+            <Image src="https://i.imgur.com/LjprDey.jpg" alt="Basil" />
             <Card.Content>
-              <Card.Header>Tomatoes</Card.Header>
+              <Card.Header>Basil</Card.Header>
               <Card.Meta>
                 <span className="date">
                   Tomatoes are basically the best plant and if you dont love
@@ -75,8 +72,8 @@ function Plants() {
               <Card.Description>Indoor Start Date: 4/6/2018</Card.Description>
               <Card.Description>Outdoor Start Date: 6/6/2018</Card.Description>
               <Card.Description>
-                Planting Guidelines: Space plants 18 inches apart, keep leaves dry,
-                water at the base.
+                Planting Guidelines: Space plants 18 inches apart, keep leaves
+                dry, water at the base.
               </Card.Description>
             </Card.Content>
             <Card.Content extra>
@@ -87,7 +84,7 @@ function Plants() {
             </Card.Content>
           </Card>
         </Grid.Column>
-        </Grid>
+      </Grid>
     </div>
   );
 }
