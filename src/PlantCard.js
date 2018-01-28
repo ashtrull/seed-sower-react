@@ -1,30 +1,28 @@
-import React from "react";
+import React, { Component } from "react";
+import { EMPTY_COMPONENT } from "./component_helpers";
+import PlantModal from "./PlantModal";
 import { Grid } from "semantic-ui-react";
 import { Card, Icon, Image } from "semantic-ui-react";
 
-function PlantCard(props) {
-  return (
-    <Grid.Column>
+class PlantCard extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
       <Card centered>
-        <Image src={props.plant.image} alt={props.plant.name} />
+        <Image src={this.props.plant.image} alt={this.props.plant.name} />
         <Card.Content>
-          <Card.Header>{props.plant.name}</Card.Header>
+          <Card.Header>{this.props.plant.name}</Card.Header>
           <Card.Meta>
-            <span className="date">{props.plant.description}</span>
+            <span className="date">{this.props.plant.description}</span>
           </Card.Meta>
-          <Card.Description>{props.plant.indoor_start}</Card.Description>
-          <Card.Description>{props.plant.outdoor_start}</Card.Description>
-          <Card.Description>{props.plant.guidelines}</Card.Description>
         </Card.Content>
-        <Card.Content extra>
-          <a>
-            <Icon name="user" />
-            Companion Plants:
-          </a>
-        </Card.Content>
+        <PlantModal plant={this.props.plant} />
       </Card>
-    </Grid.Column>
-  );
+    );
+  }
 }
 
 export default PlantCard;

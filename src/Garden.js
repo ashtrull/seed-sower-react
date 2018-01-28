@@ -4,10 +4,11 @@ import Login from "./Login";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Table, Image } from "semantic-ui-react";
+import styles from "./styles";
 
 function Garden() {
   return (
-    <Table basic='very'>
+    <Table basic='very' style={styles.gardenTable}>
     <Table.Header>
       <Table.Row>
         <Table.HeaderCell></Table.HeaderCell>

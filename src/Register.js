@@ -4,15 +4,15 @@ import LoginScreen from "./LoginScreen";
 import Login from "./Login";
 import axios from "axios";
 
-
 class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      first_name: "",
-      last_name: "",
+      name: "",
       email: "",
-      password: ""
+      password: "",
+      confirm_password: "",
+      zip: ""
     };
   }
 
@@ -26,42 +26,42 @@ class Register extends Component {
   }
 
   handleClick(event) {
-    var apiBaseUrl = "http://localhost:4000/api/";
-    console.log(
-      "values",
-      this.state.first_name,
-      this.state.last_name,
-      this.state.email,
-      this.state.password
-    );
-    //To be done:check for empty values before hitting submit
-    var self = this;
-    var payload = {
-      first_name: this.state.first_name,
-      last_name: this.state.last_name,
-      email: this.state.email,
-      password: this.state.password
-    };
-    axios
-      .post(apiBaseUrl + "/register", payload)
-      .then(function(response) {
-        console.log(response);
-        if (response.data.code === 200) {
-          //  console.log("registration successfull");
-          var loginscreen = [];
-          loginscreen.push(<Login parentContext={this} />);
-          var loginmessage = "Not Registered yet.Go to registration";
-          self.props.parentContext.setState({
-            loginscreen: loginscreen,
-            loginmessage: loginmessage,
-            buttonLabel: "Register",
-            isLogin: true
-          });
+    console.log(this.state.password);
+    console.log(this.state.confirm_password);
+    if (this.state.password !== this.state.confirm_password) {
+      alert("Passwords do not match");
+    } else {
+      var apiBaseUrl = "http://localhost:4741/";
+      //To be done:check for empty values before hitting submit
+      var self = this;
+      axios({
+        method: "post",
+        url: apiBaseUrl + "sign-up",
+        header: "Content-Type: application/json",
+        data: {
+          credentials: {
+            name: this.state.first_name,
+            email: this.state.email,
+            password: this.state.password,
+            zip: this.state.zip
+          }
         }
       })
-      .catch(function(error) {
-        console.log(error);
-      });
+        .then(function(response) {
+          console.log(response);
+          if (response.status === 200) {
+            console.log("registration successful");
+            var loginscreen = [];
+            loginscreen.push(<Login parentContext={this} />);
+            self.props.parentContext.setState({
+              loginscreen: loginscreen
+            });
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
   }
 
   render() {
@@ -76,31 +76,52 @@ class Register extends Component {
             <Grid centered columns={3}>
               <Grid.Column>
                 <Form.Input
+                  required
+                  placeholder="Enter your Name"
+                  label="Name"
+                  onChange={(event, newValue) =>
+                    this.setState({ name: newValue.value })
+                  }
+                />
+                <Form.Input
+                  required
                   placeholder="Enter your Username"
                   label="Username"
                   onChange={(event, newValue) =>
-                    this.setState({ username: newValue })
+                    this.setState({ email: newValue.value })
                   }
                 />
                 <br />
                 <Form.Input
+                  required
                   centered
                   type="password"
                   placeholder="Enter your Password"
                   label="Password"
                   style={{ "text-align": "center" }}
                   onChange={(event, newValue) =>
-                    this.setState({ password: newValue })
+                    this.setState({ password: newValue.value })
                   }
                 />
                 <Form.Input
+                  required
                   centered
                   type="password"
                   placeholder="Confirm Password"
-                  label="Password"
+                  label="Confirm Password"
                   style={{ "text-align": "center" }}
                   onChange={(event, newValue) =>
-                    this.setState({ password: newValue })
+                    this.setState({ confirm_password: newValue.value })
+                  }
+                />
+                <Form.Input
+                  required
+                  centered
+                  placeholder="Zip Code"
+                  label="Zip Code"
+                  style={{ "text-align": "center" }}
+                  onChange={(event, newValue) =>
+                    this.setState({ zip: newValue.value })
                   }
                 />
               </Grid.Column>

@@ -50,7 +50,6 @@ class StartPage extends Component {
   }
 
   handlePlantClick(event) {
-    console.log(plantData);
     this.setState({
       garden: EMPTY_COMPONENT,
       plants: <Plants plants={plantData} />

@@ -10,10 +10,7 @@ class Loginscreen extends Component {
     this.state = {
       username: "",
       password: "",
-      loginscreen: [],
-      loginmessage: "",
-      buttonLabel: "Register",
-      isLogin: true
+      loginscreen: []
     };
   }
 
