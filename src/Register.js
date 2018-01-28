@@ -26,8 +26,7 @@ class Register extends Component {
   }
 
   handleClick(event) {
-    console.log(this.state.password);
-    console.log(this.state.confirm_password);
+    console.log(this.state);
     if (this.state.password !== this.state.confirm_password) {
       alert("Passwords do not match");
     } else {
@@ -40,9 +39,10 @@ class Register extends Component {
         header: "Content-Type: application/json",
         data: {
           credentials: {
-            name: this.state.first_name,
             email: this.state.email,
             password: this.state.password,
+            password_confirmation: this.state.confirm_password,
+            name: this.state.name,
             zip: this.state.zip
           }
         }
@@ -75,14 +75,14 @@ class Register extends Component {
           <Form>
             <Grid centered columns={3}>
               <Grid.Column>
-                <Form.Input
-                  required
-                  placeholder="Enter your Name"
-                  label="Name"
-                  onChange={(event, newValue) =>
-                    this.setState({ name: newValue.value })
-                  }
-                />
+              <Form.Input
+                required
+                placeholder="Enter your Name"
+                label="Name"
+                onChange={(event, newValue) =>
+                  this.setState({ name: newValue.value })
+                }
+              />
                 <Form.Input
                   required
                   placeholder="Enter your Username"
@@ -117,8 +117,8 @@ class Register extends Component {
                 <Form.Input
                   required
                   centered
-                  placeholder="Zip Code"
-                  label="Zip Code"
+                  placeholder="Enter your zip code"
+                  label="Zipcode"
                   style={{ "text-align": "center" }}
                   onChange={(event, newValue) =>
                     this.setState({ zip: newValue.value })

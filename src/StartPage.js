@@ -50,6 +50,19 @@ class StartPage extends Component {
   }
 
   handlePlantClick(event) {
+    var apiBaseUrl = "http://localhost:4741/";
+    var self = this;
+    axios({
+        method:'get',
+        url: apiBaseUrl + 'plants',
+        header: "Authorization: Token token=" + ,
+        data: {
+          credentials: {
+          email: this.state.username.value,
+          password: this.state.password.value
+        }
+      }
+      })
     this.setState({
       garden: EMPTY_COMPONENT,
       plants: <Plants plants={plantData} />

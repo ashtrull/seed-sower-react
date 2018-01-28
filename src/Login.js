@@ -10,7 +10,9 @@ class Login extends Component {
     super(props);
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      token: "",
+      id: ""
     };
 
     // this.handleClick = this.handleClick.bind(this);
@@ -23,7 +25,8 @@ class Login extends Component {
         method:'post',
         url: apiBaseUrl + 'sign-in',
         header: "Content-Type: application/json",
-        data: {credentials: {
+        data: {
+          credentials: {
           email: this.state.username.value,
           password: this.state.password.value
         }
@@ -33,6 +36,10 @@ class Login extends Component {
         console.log(response);
         if (response.status === 200) {
           console.log("Login successfull");
+          self.setState({
+            token: response.data.user.token,
+            id: response.data.user.id
+          })
           console.log(self.props);
           var appScreen = [];
           appScreen.push(<StartPage />);
