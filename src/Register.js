@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Button, Form, Grid, Segment } from "semantic-ui-react";
+import { Button, Form, Grid, Segment, Menu, Image } from "semantic-ui-react";
+import styles from "./styles";
 import LoginScreen from "./LoginScreen";
 import Login from "./Login";
 import axios from "axios";
