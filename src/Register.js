@@ -68,9 +68,28 @@ class Register extends Component {
     return (
       <div>
         <div>
-          <Segment textAlign="center" color="green" inverted>
-            Welcome to Seed Sower!
-          </Segment>
+        <Menu color="yellow" fixed inverted large style={styles.menu}>
+          <Image
+            src="https://i.imgur.com/SL438yH.png"
+            style={styles.menuImg}
+          />
+          <h1 style={styles.menuHeader}>Seed Sower</h1>
+          <Menu.Menu position="right">
+            <Menu.Item
+              name="about"
+              onClick={this.handleItemClick}
+            >
+              About
+            </Menu.Item>
+
+            <Menu.Item
+              name="help"
+              onClick={this.handleItemClick}
+            >
+              Help
+            </Menu.Item>
+          </Menu.Menu>
+        </Menu>
           <br />
           <Form>
             <Grid centered columns={3}>
