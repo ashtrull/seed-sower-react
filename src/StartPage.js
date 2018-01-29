@@ -1,44 +1,11 @@
 import React, { Component } from "react";
-import { Button, Segment } from "semantic-ui-react";
+import { Button, Dropdown, Segment, Menu, Image } from "semantic-ui-react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Plants from "./Plants";
 import Garden from "./Garden";
 import { EMPTY_COMPONENT } from "./component_helpers";
 import styles from "./styles";
-
-// const plantData = [
-//   {
-//     name: "Tomato",
-//     description:
-//       "Tomatoes are basically the best plant and if you dont love them, I dont want to know you.",
-//     indoor_start: "2018-02-03",
-//     outdoor_start: "2018-04-03",
-//     guidelines:
-//       "Planting Guidelines: Space plants 18 inches apart, keep leaves dry, water at the base.",
-//     image: "https://i.imgur.com/dLmSqIa.jpg"
-//   },
-//   {
-//     name: "Summer Squash",
-//     description:
-//       "Tomatoes are basically the best plant and if you dont love them, I dont want to know you.",
-//     indoor_start: "2018-02-03",
-//     outdoor_start: "2018-04-03",
-//     guidelines:
-//       "Planting Guidelines: Space plants 18 inches apart, keep leaves dry, water at the base.",
-//     image: "https://i.imgur.com/yoMWH5Q.jpg"
-//   },
-//   {
-//     name: "Basil",
-//     description:
-//       "Tomatoes are basically the best plant and if you dont love them, I dont want to know you.",
-//     indoor_start: "2018-02-03",
-//     outdoor_start: "2018-04-03",
-//     guidelines:
-//       "Planting Guidelines: Space plants 18 inches apart, keep leaves dry, water at the base.",
-//     image: "https://i.imgur.com/LjprDey.jpg"
-//   }
-// ];
 
 class StartPage extends Component {
   constructor(props) {
@@ -83,15 +50,30 @@ class StartPage extends Component {
   render() {
     return (
       <div>
-        <Segment textAlign="center" color="green" inverted>
-          Welcome to Seed Sower!
-        </Segment>
+      <Menu color="yellow" fixed inverted large style={styles.menu}>
+        <Image src="https://i.imgur.com/SL438yH.png" style={styles.menuImg}/>
+        <h1 style={styles.menuHeader}>Seed Sower</h1>
+        <Menu.Menu position="right">
+          <Menu.Item
+            name="about"
+            onClick={this.handleItemClick}
+          >
+            About
+          </Menu.Item>
+          <Dropdown item text='Account'>
+            <Dropdown.Menu>
+              <Dropdown.Item>Settings</Dropdown.Item>
+              <Dropdown.Item>Logout</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Menu.Menu>
+      </Menu>
         <br />
-        <Button.Group style={styles.button}>
-          <Button onClick={event => this.handleGardenClick(event)}>
+        <Button.Group>
+          <Button style={styles.switchButton} onClick={event => this.handleGardenClick(event)}>
             My Garden
           </Button>
-          <Button onClick={event => this.handlePlantClick(event)}>
+          <Button style={styles.switchButton} onClick={event => this.handlePlantClick(event)}>
             All Plants
           </Button>
         </Button.Group>

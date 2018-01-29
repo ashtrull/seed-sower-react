@@ -8,7 +8,7 @@ function PlantModal(props) {
   console.log(props.plant)
 
   return (
-    <Modal size="mini" trigger={<Button>More Details</Button>}>
+    <Modal size="mini" trigger={<Button style={styles.moreButton}>More Details</Button>}>
       <Modal.Header style={styles.modalHeader}>
         {props.plant.name}
       </Modal.Header>

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Button, Form, Grid, Segment } from "semantic-ui-react";
+import { Button, Form, Grid, Image, Menu, Segment } from "semantic-ui-react";
 import styles from "./styles";
 import { Link } from "react-router-dom";
-import StartPage from "./StartPage"
+import StartPage from "./StartPage";
 
 class Login extends Component {
   constructor(props) {
@@ -22,16 +22,16 @@ class Login extends Component {
     var apiBaseUrl = "http://localhost:4741/";
     var self = this;
     axios({
-        method:'post',
-        url: apiBaseUrl + 'sign-in',
-        header: "Content-Type: application/json",
-        data: {
-          credentials: {
+      method: "post",
+      url: apiBaseUrl + "sign-in",
+      header: "Content-Type: application/json",
+      data: {
+        credentials: {
           email: this.state.email.value,
           password: this.state.password.value
         }
       }
-      })
+    })
       .then(function(response) {
         console.log(response);
         if (response.status === 200) {
@@ -39,12 +39,15 @@ class Login extends Component {
           self.setState({
             token: response.data.user.token,
             id: response.data.user.id
-          })
-          console.log(self)
+          });
+          console.log(self);
           var appScreen = [];
-          appScreen.push(<StartPage credentials={self.state}/>);
-          self.props.appContext.setState({ loginPage: [], uploadScreen: appScreen});
-        } else if (response.status=== 204) {
+          appScreen.push(<StartPage credentials={self.state} />);
+          self.props.appContext.setState({
+            loginPage: [],
+            uploadScreen: appScreen
+          });
+        } else if (response.status === 204) {
           console.log("Email/password combination does not exist");
           alert("Email/password combination does not exist");
         } else {
@@ -61,9 +64,28 @@ class Login extends Component {
     return (
       <div>
         <div>
-          <Segment textAlign="center" color="green" inverted>
-            Welcome to Seed Sower!
-          </Segment>
+          <Menu color="yellow" fixed inverted large style={styles.menu}>
+            <Image
+              src="https://i.imgur.com/SL438yH.png"
+              style={styles.menuImg}
+            />
+            <h1 style={styles.menuHeader}>Seed Sower</h1>
+            <Menu.Menu position="right">
+              <Menu.Item
+                name="about"
+                onClick={this.handleItemClick}
+              >
+                About
+              </Menu.Item>
+
+              <Menu.Item
+                name="help"
+                onClick={this.handleItemClick}
+              >
+                Help
+              </Menu.Item>
+            </Menu.Menu>
+          </Menu>
           <Form>
             <Grid centered columns={3}>
               <Grid.Column>
@@ -72,9 +94,9 @@ class Login extends Component {
                   placeholder="Enter your Email"
                   label="Email"
                   onChange={(event, newValue) => {
-                    console.log(this.state.email.value)
-                    return this.setState({ email: newValue })}
-                  }
+                    console.log(this.state.email.value);
+                    return this.setState({ email: newValue });
+                  }}
                 />
                 <br />
                 <Form.Input
@@ -84,9 +106,9 @@ class Login extends Component {
                   label="Password"
                   style={{ "text-align": "center" }}
                   onChange={(event, newValue) => {
-                    console.log(this.state.password)
-                    return this.setState({ password: newValue }) }
-                  }
+                    console.log(this.state.password);
+                    return this.setState({ password: newValue });
+                  }}
                 />
               </Grid.Column>
             </Grid>
@@ -99,11 +121,7 @@ class Login extends Component {
               Submit
             </Button>
           </Form>
-          <Link to="/startPage">
-            <Button style={styles.button} primary>
-              Look Over Here
-            </Button>
-          </Link>
+          <Link to="/startPage" />
         </div>
       </div>
     );

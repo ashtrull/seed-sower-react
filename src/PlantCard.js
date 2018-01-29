@@ -13,7 +13,7 @@ class PlantCard extends Component {
   render() {
     return (
       <Card centered style={styles.plantCard}>
-        <Image src={this.props.plant.img} alt={this.props.plant.name} style={styles.plantCardImg}/>
+        <Image fluid src={this.props.plant.img} alt={this.props.plant.name} style={styles.plantCardImg}/>
         <Card.Content>
           <Card.Header>{this.props.plant.name}</Card.Header>
           <Card.Meta>
