@@ -69,40 +69,34 @@ class Register extends Component {
     return (
       <div>
         <div>
-        <Menu color="yellow" fixed inverted large style={styles.menu}>
-          <Image
-            src="https://i.imgur.com/SL438yH.png"
-            style={styles.menuImg}
-          />
-          <h1 style={styles.menuHeader}>Seed Sower</h1>
-          <Menu.Menu position="right">
-            <Menu.Item
-              name="about"
-              onClick={this.handleItemClick}
-            >
-              About
-            </Menu.Item>
+          <Menu color="yellow" fixed inverted large style={styles.menu}>
+            <Image
+              src="https://i.imgur.com/SL438yH.png"
+              style={styles.menuImg}
+            />
+            <h1 style={styles.menuHeader}>Seed Sower</h1>
+            <Menu.Menu position="right">
+              <Menu.Item name="about" onClick={this.handleItemClick}>
+                About
+              </Menu.Item>
 
-            <Menu.Item
-              name="help"
-              onClick={this.handleItemClick}
-            >
-              Help
-            </Menu.Item>
-          </Menu.Menu>
-        </Menu>
+              <Menu.Item name="help" onClick={this.handleItemClick}>
+                Help
+              </Menu.Item>
+            </Menu.Menu>
+          </Menu>
           <br />
           <Form>
             <Grid centered columns={3}>
               <Grid.Column>
-              <Form.Input
-                required
-                placeholder="Enter your Name"
-                label="Name"
-                onChange={(event, newValue) =>
-                  this.setState({ name: newValue.value })
-                }
-              />
+                <Form.Input
+                  required
+                  placeholder="Enter your Name"
+                  label="Name"
+                  onChange={(event, newValue) =>
+                    this.setState({ name: newValue.value })
+                  }
+                />
                 <Form.Input
                   required
                   placeholder="Enter your Email"
@@ -147,13 +141,21 @@ class Register extends Component {
               </Grid.Column>
             </Grid>
             <br />
-            <Button primary onClick={event => this.handleClick(event)}>
+            <Button
+              style={styles.button}
+              primary
+              onClick={event => this.handleClick(event)}
+            >
               Submit
             </Button>
           </Form>
           <br />
           <p>Already have an account?</p>
-          <Button primary onClick={event => this.handleSignInClick(event)}>
+          <Button
+            style={styles.button}
+            primary
+            onClick={event => this.handleSignInClick(event)}
+          >
             Sign In
           </Button>
         </div>
