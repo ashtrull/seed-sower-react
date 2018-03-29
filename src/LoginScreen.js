@@ -1,59 +1,59 @@
-import React, { Component } from 'react';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {green500} from 'material-ui/styles/colors';
-import {purple400} from 'material-ui/styles/colors';
-import RaisedButton from 'material-ui/RaisedButton';
-import Login from './Login';
-import Register from './Register';
-
-const muiTheme = getMuiTheme({
-  palette: {
-    primary1Color: green500,
-    accent1Color: purple400,
-  },
-});
+import React, { Component } from "react";
+import Login from "./Login";
+import Register from "./Register";
+import { Button } from "semantic-ui-react";
+import styles from "./styles";
 
 class Loginscreen extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
-      username:'',
-      password:'',
-      loginscreen:[],
-      loginmessage:'',
-      buttonLabel:'Register',
-      isLogin:true
-    }
+    this.state = {
+      email: "",
+      password: "",
+      loginscreen: []
+    };
   }
 
-  componentWillMount(){
-    var loginscreen=[];
-    loginscreen.push(<Login parentContext={this} appContext={this.props.parentContext}/>);
-    var loginmessage = "Not registered yet, Register Now";
+  componentWillMount() {
+    var loginscreen = [];
+    loginscreen.push(
+      <Login parentContext={this} appContext={this.props.parentContext} />
+    );
+    var loginmessage = "New to Seed Sower? Register now!";
     this.setState({
-                  loginscreen:loginscreen,
-                  loginmessage:loginmessage
-                    })
+      loginscreen: loginscreen,
+      loginmessage: loginmessage
+    });
   }
+
+  handleRegisterClick(event) {
+    var registerScreen = [];
+    registerScreen.push(
+      <Register parentContext={this} appContext={this.props.parentContext} />
+    );
+    this.props.parentContext.setState({
+      loginPage: [],
+      uploadScreen: registerScreen
+    });
+  }
+
   render() {
     return (
       <div className="loginscreen">
         {this.state.loginscreen}
+        {this.state.loginmessage}
         <div>
-          {this.state.loginmessage}
-          <MuiThemeProvider muiTheme={muiTheme}>
-            <div>
-               <RaisedButton label={this.state.buttonLabel} primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
-           </div>
-          </MuiThemeProvider>
+          <Button
+            style={styles.button}
+            primary
+            onClick={event => this.handleRegisterClick(event)}
+          >
+            Register
+          </Button>
         </div>
       </div>
     );
   }
 }
-const style = {
-  margin: 15,
-};
+
 export default Loginscreen;

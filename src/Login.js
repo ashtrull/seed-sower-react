@@ -1,82 +1,131 @@
-import React, { Component } from 'react';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import muiTheme from './LoginScreen.js'
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import muiThemeable from 'material-ui/styles/muiThemeable';
-import Colors from 'material-ui/styles/colors';
-import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
+import { Button, Form, Grid, Image, Menu, Segment } from "semantic-ui-react";
+import styles from "./styles";
+import { Link } from "react-router-dom";
+import StartPage from "./StartPage";
+
 class Login extends Component {
-constructor(props){
-  super(props);
-  this.state={
-  username:'',
-  password:''
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+      token: "",
+      id: ""
+    };
+
+    // this.handleClick = this.handleClick.bind(this);
   }
- }
 
- handleClick(event){
- var apiBaseUrl = "http://localhost:4000/api/";
- var self = this;
- var payload={
- "email":this.state.username,
- "password":this.state.password
- }
- axios.post(apiBaseUrl+'login', payload)
- .then(function (response) {
- console.log(response);
- if(response.data.code == 200){
- console.log("Login successfull");
- var uploadScreen=[];
- // uploadScreen.push(<UploadScreen appContext={self.props.appContext}/>)
- self.props.appContext.setState({loginPage:[]})
- }
- else if(response.data.code == 204){
- console.log("Username password do not match");
- alert("username password do not match")
- }
- else{
- console.log("Username does not exist");
- alert("Username does not exist");
- }
- })
- .catch(function (error) {
- console.log(error);
- });
- }
+  handleClick(event) {
+    var apiBaseUrl = "http://localhost:4741/";
+    var self = this;
+    axios({
+      method: "post",
+      url: apiBaseUrl + "sign-in",
+      header: "Content-Type: application/json",
+      data: {
+        credentials: {
+          email: this.state.email.value,
+          password: this.state.password.value
+        }
+      }
+    })
+      .then(function(response) {
+        console.log(response);
+        if (response.status === 200) {
+          console.log("Login successfull");
+          self.setState({
+            token: response.data.user.token,
+            id: response.data.user.id
+          });
+          console.log(self);
+          var appScreen = [];
+          appScreen.push(<StartPage credentials={self.state} />);
+          self.props.appContext.setState({
+            loginPage: [],
+            uploadScreen: appScreen
+          });
+        } else if (response.status === 204) {
+          console.log("Email/password combination does not exist");
+          alert("Email/password combination does not exist");
+        } else {
+          console.log("No account associated with email");
+          alert("No account associated with email");
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
 
-render() {
+  render() {
     return (
       <div>
-        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-          <div>
-          <AppBar
-             title="Welcome to Seed Sower"
-           />
-           <TextField
-             hintText="Enter your Username"
-             floatingLabelText="Username"
-             onChange = {(event,newValue) => this.setState({username:newValue})}
-             />
-           <br/>
-             <TextField
-               type="password"
-               hintText="Enter your Password"
-               floatingLabelText="Password"
-               onChange = {(event,newValue) => this.setState({password:newValue})}
-               />
-             <br/>
-             <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
-         </div>
-         </MuiThemeProvider>
+        <div>
+          <Menu color="yellow" fixed inverted large style={styles.menu}>
+            <Image
+              src="https://i.imgur.com/SL438yH.png"
+              style={styles.menuImg}
+            />
+            <h1 style={styles.menuHeader}>Seed Sower</h1>
+            <Menu.Menu position="right">
+              <Menu.Item
+                name="about"
+                onClick={this.handleItemClick}
+              >
+                About
+              </Menu.Item>
+
+              <Menu.Item
+                name="help"
+                onClick={this.handleItemClick}
+              >
+                Help
+              </Menu.Item>
+            </Menu.Menu>
+          </Menu>
+          <Form>
+            <Grid centered columns={3}>
+              <Grid.Column>
+                <Form.Input
+                  type="text"
+                  placeholder="Enter your Email"
+                  label="Email"
+                  onChange={(event, newValue) => {
+                    console.log(this.state.email.value);
+                    return this.setState({ email: newValue });
+                  }}
+                />
+                <br />
+                <Form.Input
+                  centered
+                  type="password"
+                  placeholder="Enter your Password"
+                  label="Password"
+                  style={{ "text-align": "center" }}
+                  onChange={(event, newValue) => {
+                    console.log(this.state.password);
+                    return this.setState({ password: newValue });
+                  }}
+                />
+              </Grid.Column>
+            </Grid>
+            <br />
+            <Button
+              style={styles.button}
+              primary
+              onClick={event => this.handleClick(event)}
+            >
+              Submit
+            </Button>
+          </Form>
+          <Link to="/startPage" />
+        </div>
       </div>
     );
   }
 }
-const style = {
- margin: 15,
-};
+
 export default Login;
