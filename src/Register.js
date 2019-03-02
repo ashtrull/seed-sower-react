@@ -1,167 +1,95 @@
-import React, { Component } from "react";
-import { Button, Form, Grid, Segment, Menu, Image } from "semantic-ui-react";
-import styles from "./styles";
-import LoginScreen from "./LoginScreen";
-import Login from "./Login";
-import axios from "axios";
-
+import React, { Component } from 'react';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import AppBar from 'material-ui/AppBar';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import Login from './Login.js';
+import axios from 'axios';
 class Register extends Component {
-  constructor(props) {
+  constructor(props){
     super(props);
-    this.state = {
-      name: "",
-      email: "",
-      password: "",
-      confirm_password: "",
-      zip: ""
-    };
-  }
-
-  handleSignInClick(event) {
-    var loginscreen = [];
-    loginscreen.push(<LoginScreen parentContext={this.props.appContext} />);
-    this.props.appContext.setState({
-      loginPage: loginscreen,
-      uploadScreen: []
-    });
-  }
-
-  handleClick(event) {
-    console.log(this.state);
-    if (this.state.password !== this.state.confirm_password) {
-      alert("Passwords do not match");
-    } else {
-      var apiBaseUrl = "http://localhost:4741/";
-      //To be done:check for empty values before hitting submit
-      var self = this;
-      axios({
-        method: "post",
-        url: apiBaseUrl + "sign-up",
-        header: "Content-Type: application/json",
-        data: {
-          credentials: {
-            email: this.state.email,
-            password: this.state.password,
-            password_confirmation: this.state.confirm_password,
-            name: this.state.name,
-            zip: this.state.zip
-          }
-        }
-      })
-        .then(function(response) {
-          console.log(response);
-          if (response.status === 200) {
-            console.log("registration successful");
-            var loginscreen = [];
-            loginscreen.push(<Login parentContext={this} />);
-            self.props.parentContext.setState({
-              loginscreen: loginscreen
-            });
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+    this.state={
+      first_name:'',
+      last_name:'',
+      email:'',
+      password:''
     }
+}
+    handleClick(event){
+    var apiBaseUrl = "http://localhost:4000/api/";
+    console.log("values",this.state.first_name,this.state.last_name,this.state.email,this.state.password);
+    //To be done:check for empty values before hitting submit
+    var self = this;
+    var payload={
+    "first_name": this.state.first_name,
+    "last_name":this.state.last_name,
+    "email":this.state.email,
+    "password":this.state.password
+    }
+    axios.post(apiBaseUrl+'/register', payload)
+   .then(function (response) {
+     console.log(response);
+     if(response.data.code == 200){
+      //  console.log("registration successfull");
+       var loginscreen=[];
+       loginscreen.push(<Login parentContext={this}/>);
+       var loginmessage = "Not Registered yet.Go to registration";
+       self.props.parentContext.setState({loginscreen:loginscreen,
+       loginmessage:loginmessage,
+       buttonLabel:"Register",
+       isLogin:true
+        });
+     }
+   })
+   .catch(function (error) {
+     console.log(error);
+   });
   }
 
   render() {
     return (
       <div>
-        <div>
-          <Menu color="yellow" fixed inverted large style={styles.menu}>
-            <Image
-              src="https://i.imgur.com/SL438yH.png"
-              style={styles.menuImg}
-            />
-            <h1 style={styles.menuHeader}>Seed Sower</h1>
-            <Menu.Menu position="right">
-              <Menu.Item name="about" onClick={this.handleItemClick}>
-                About
-              </Menu.Item>
-
-              <Menu.Item name="help" onClick={this.handleItemClick}>
-                Help
-              </Menu.Item>
-            </Menu.Menu>
-          </Menu>
-          <br />
-          <Form>
-            <Grid centered columns={3}>
-              <Grid.Column>
-                <Form.Input
-                  required
-                  placeholder="Enter your Name"
-                  label="Name"
-                  onChange={(event, newValue) =>
-                    this.setState({ name: newValue.value })
-                  }
-                />
-                <Form.Input
-                  required
-                  placeholder="Enter your Email"
-                  label="Email"
-                  onChange={(event, newValue) =>
-                    this.setState({ email: newValue.value })
-                  }
-                />
-                <br />
-                <Form.Input
-                  required
-                  centered
-                  type="password"
-                  placeholder="Enter your Password"
-                  label="Password"
-                  style={{ "text-align": "center" }}
-                  onChange={(event, newValue) =>
-                    this.setState({ password: newValue.value })
-                  }
-                />
-                <Form.Input
-                  required
-                  centered
-                  type="password"
-                  placeholder="Confirm Password"
-                  label="Confirm Password"
-                  style={{ "text-align": "center" }}
-                  onChange={(event, newValue) =>
-                    this.setState({ confirm_password: newValue.value })
-                  }
-                />
-                <Form.Input
-                  required
-                  centered
-                  placeholder="Enter your zip code"
-                  label="Zipcode"
-                  style={{ "text-align": "center" }}
-                  onChange={(event, newValue) =>
-                    this.setState({ zip: newValue.value })
-                  }
-                />
-              </Grid.Column>
-            </Grid>
-            <br />
-            <Button
-              style={styles.button}
-              primary
-              onClick={event => this.handleClick(event)}
-            >
-              Submit
-            </Button>
-          </Form>
-          <br />
-          <p>Already have an account?</p>
-          <Button
-            style={styles.button}
-            primary
-            onClick={event => this.handleSignInClick(event)}
-          >
-            Sign In
-          </Button>
-        </div>
+        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+          <div>
+          <AppBar
+             title="Register"
+           />
+           <TextField
+             hintText="Enter your First Name"
+             floatingLabelText="First Name"
+             onChange = {(event,newValue) => this.setState({first_name:newValue})}
+             />
+           <br/>
+           <TextField
+             hintText="Enter your Last Name"
+             floatingLabelText="Last Name"
+             onChange = {(event,newValue) => this.setState({last_name:newValue})}
+             />
+           <br/>
+           <TextField
+             hintText="Enter your Email"
+             type="email"
+             floatingLabelText="Email"
+             onChange = {(event,newValue) => this.setState({email:newValue})}
+             />
+           <br/>
+           <TextField
+             type = "password"
+             hintText="Enter your Password"
+             floatingLabelText="Password"
+             onChange = {(event,newValue) => this.setState({password:newValue})}
+             />
+           <br/>
+           <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+          </div>
+         </MuiThemeProvider>
       </div>
     );
   }
 }
-
+const style = {
+  margin: 15,
+};
 export default Register;
