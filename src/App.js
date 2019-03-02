@@ -1,43 +1,46 @@
-import "./App.css";
-import React, { Component } from "react";
-import injectTapEventPlugin from "react-tap-event-plugin";
-import HomeScreen from "./HomeScreen.js";
-import LoginScreen from "./LoginScreen.js";
-import { BrowserRouter as Router } from "react-router-dom";
+import './App.css';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import HomeScreen from './HomeScreen.js'
+import LoginScreen from './LoginScreen.js'
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
 class App extends Component {
-  constructor(props) {
+  constructor(props){
     super(props);
-    this.state = {
-      loginPage: [],
-      uploadScreen: []
-    };
+    this.state={
+      loginPage:[],
+      uploadScreen:[]
+    }
   }
-  componentWillMount() {
-    console.log(this);
-    var loginPage = [];
-    loginPage.push(<LoginScreen parentContext={this} />);
+  componentWillMount(){
+    var loginPage =[];
+    loginPage.push(<LoginScreen parentContext={this}/>);
     this.setState({
-      loginPage: loginPage
-    });
+                  loginPage:loginPage
+                    })
   }
   render() {
     return (
-      <Router>
-        <div>
-          <HomeScreen />
-          <div className="App">
-            {this.state.loginPage}
-            {this.state.uploadScreen}
-          </div>
-        </div>
-      </Router>
+      <MuiThemeProvider>
+      <HomeScreen />
+      <div className="App">
+        {this.state.loginPage}
+        {this.state.uploadScreen}
+      </div>
+      </MuiThemeProvider>
     );
   }
 }
+const style = {
+  margin: 15,
+};
 
 export default App;
 
